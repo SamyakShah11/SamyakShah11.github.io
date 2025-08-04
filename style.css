@@ -43,7 +43,7 @@ body {
 .header {
     background-color: var(--header-bg);
     box-shadow: var(--card-shadow);
-    padding: 0.25rem 5%; /* Adjust padding for larger logo */
+    padding: 1rem 5%;
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -63,20 +63,40 @@ body {
 }
 
 .nav-logo {
-    display: flex;
-    align-items: center;
-    position: relative; /* For fine-tuning alignment */
-    top: 5px; /* Nudge the logo down slightly */
-    transition: transform 0.3s ease;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    /* Gradient text effect */
+    background-image: linear-gradient(to right, var(--primary-color) 0%, #66BB6A 51%, var(--primary-color) 100%);
+    background-size: 200% auto;
+    color: var(--primary-color); 
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: background-position 0.4s ease, transform 0.3s ease;
+    position: relative; /* For underline positioning */
+    padding-bottom: 4px; /* Space for underline */
+}
+
+.nav-logo::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease-in-out;
 }
 
 .nav-logo:hover {
+    background-position: right center;
     transform: scale(1.05);
 }
 
-.logo-image {
-    height: 100px; /* Increased logo size */
-    width: auto;
+.nav-logo:hover::after {
+    width: 100%;
 }
 
 .nav-menu {
