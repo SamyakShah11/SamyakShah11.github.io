@@ -16,8 +16,8 @@
     /* Dark Theme */
     --bg-color: #121212;
     --text-color: #e0e0e0;
-    --primary-color: #4CAF50; /* Consistent green across themes */
-    --hero-bg-color: #213124; /* Dark green for hero section */
+    --primary-color: #4CAF50; 
+    --hero-bg-color: #213124; 
     --secondary-color: #1e1e1e;
     --header-bg: #1e1e1e;
     --card-bg: #2c2c2c;
@@ -39,7 +39,7 @@ body {
     transition: background-color 0.3s, color 0.3s;
 }
 
-/* Header & Navbar */
+
 .header {
     background-color: var(--header-bg);
     box-shadow: var(--card-shadow);
@@ -73,9 +73,8 @@ body {
 }
 
 .logo-image {
-    height: 50px; /* Increased height to fill more space */
-    width: auto; /* Maintain aspect ratio */
-}
+    height: 50px; 
+    width: auto; }
 
 .nav-menu {
     display: flex;
@@ -89,7 +88,7 @@ body {
     font-size: 1rem;
     transition: color 0.3s;
     position: relative;
-    padding-bottom: 4px; /* Space for underline */
+    padding-bottom: 4px; 
 }
 
 .nav-link::after {
@@ -273,10 +272,10 @@ input:checked + .slider:before {
     transition: background-color 0.3s;
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
     .nav-menu {
-        display: none; /* Simple hiding for demo, could be a hamburger menu */
+        display: none; 
     }
 
     .nav-auth {
