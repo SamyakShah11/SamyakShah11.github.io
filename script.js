@@ -1,4 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- CONFIG & STATE ---
+    const API_URL = 'http://localhost:3000';
+    let allProducts = []; // Cache for all products fetched from the server
+    let cart = JSON.parse(localStorage.getItem('peasCart')) || [];
+
+
     // --- THEME SWITCHER LOGIC ---
     const themeToggle = document.getElementById('theme-toggle');
     if (themeToggle) {
@@ -23,54 +29,46 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- E-COMMERCE LOGIC ---
-
-    // Placeholder product data
-    const products = [
-        // Consumer Goods (NPR 499 - 5000)
-        { id: 1, name: 'Bamboo Cutlery Set', price: 899, image: 'https://images.unsplash.com/photo-1615326556243-2c9a7b5a9a41?w=600&q=80', description: 'Ditch single-use plastics with this stylish and durable bamboo cutlery set. Includes fork, knife, spoon, chopsticks, and a cleaning brush in a convenient travel pouch.' },
-        { id: 2, name: 'Reusable Beeswax Wraps (3-Pack)', price: 1250, image: 'https://images.unsplash.com/photo-1598624422981-3421a3a9d706?w=600&q=80', description: 'A natural and reusable alternative to plastic wrap. Perfect for covering bowls, wrapping sandwiches, and storing food. Made from organic cotton and beeswax.' },
-        { id: 3, name: 'Solar-Powered Phone Charger', price: 2499, image: 'https://images.unsplash.com/photo-1593592415546-9a315a3b048b?w=600&q=80', description: 'Harness the power of the sun to charge your devices on the go. Compact, lightweight, and perfect for hiking, camping, or emergencies.' },
-        { id: 4, name: 'LED Smart Bulbs (4-Pack)', price: 3500, image: 'https://images.unsplash.com/photo-1620425198463-d33055a2a75b?w=600&q=80', description: 'Upgrade your home with these energy-efficient smart bulbs. Control brightness and color from your phone, and save up to 80% on lighting costs.' },
-        { id: 5, name: 'Water-Saving Showerhead', price: 1999, image: 'https://images.unsplash.com/photo-1600242262374-551a0248525b?w=600&q=80', description: 'Reduce your water consumption without sacrificing pressure. This showerhead uses atomization technology to save up to 70% of water.' },
-        { id: 6, name: 'Kitchen Compost Bin (5L)', price: 2999, image: 'https://images.unsplash.com/photo-1599858386028-35a40e491183?w=600&q=80', description: 'A sleek and odorless solution for your kitchen scraps. This countertop compost bin makes it easy to turn food waste into nutrient-rich soil for your garden.' },
-        { id: 7, name: 'Recycled Paper Notebook Set', price: 750, image: 'https://images.unsplash.com/photo-1456735190827-d1262f71b8a3?w=600&q=80', description: 'Jot down your ideas on paper that’s kind to the planet. This set of three notebooks is made from 100% post-consumer recycled paper.' },
-        { id: 8, name: 'Plant-Based Cleaning Kit', price: 2200, image: 'https://images.unsplash.com/photo-1583947215251-b534f14a505b?w=600&q=80', description: 'A complete set of non-toxic, plant-based cleaning supplies for your entire home. Powerful on grime, gentle on the environment.' },
-        { id: 9, name: 'Wool Dryer Balls (6-Pack)', price: 1100, image: 'https://images.unsplash.com/photo-1621610232233-0998aa513998?w=600&q=80', description: 'A natural fabric softener that reduces drying time, static, and wrinkles. Reusable for over 1,000 loads, replacing disposable dryer sheets.' },
-        { id: 10, 'name': 'Stainless Steel Reusable Straws', 'price': 499, 'image': 'https://images.unsplash.com/photo-1559675522-7a5d31d7244a?w=600&q=80', 'description': 'Set of 4 stainless steel straws with a cleaning brush and travel pouch. A simple switch to reduce plastic waste.'},
-
-        // Mid-Range Tech (NPR 5001 - 20000)
-        { id: 11, name: 'Smart Thermostat', price: 14500, image: 'https://images.unsplash.com/photo-1617103996223-372b3648a21a?w=600&q=80', description: 'Learns your schedule and preferences to automatically adjust your home’s temperature, saving energy and money without sacrificing comfort.' },
-        { id: 12, name: 'Electric Kitchen Composter', price: 19999, image: 'https://placehold.co/600x400/4CAF50/FFFFFF?text=Electric+Composter', description: 'Turn your food scraps into ready-to-use compost in a matter of hours, not weeks. This electric composter dries, grinds, and cools waste with the push of a button.' },
-        { id: 13, name: 'Portable Solar Panel (100W)', price: 18500, image: 'https://images.unsplash.com/photo-1558260573-39a0f0176a63?w=600&q=80', description: 'A foldable and powerful 100W solar panel for charging power stations and electronics during camping, RV trips, or power outages.' },
-        { id: 14, name: 'Indoor Air Quality Monitor', price: 8500, image: 'https://images.unsplash.com/photo-1612189459338-a8d9c749a4e9?w=600&q=80', description: 'Track key air quality metrics like PM2.5, CO2, humidity, and temperature in your home to ensure you’re breathing clean, healthy air.' },
-        { id: 15, name: 'High-Efficiency Air Purifier', price: 16000, image: 'https://images.unsplash.com/photo-1624385399881-b52737a89264?w=600&q=80', description: 'Captures 99.97% of airborne pollutants like dust, pollen, smoke, and pet dander. Features a washable pre-filter and a true HEPA filter.' },
-        { id: 16, 'name': 'Organic Cotton Mesh Produce Bags', 'price': 699, 'image': 'https://images.unsplash.com/photo-1582692196848-a2374a4d7b34?w=600&q=80', 'description': 'Set of 5 reusable mesh bags for fruits and vegetables. Lightweight, durable, and machine washable.'},
-        { id: 17, 'name': 'Solid Shampoo & Conditioner Bars', 'price': 1450, 'image': 'https://images.unsplash.com/photo-1625357125943-3a789a5207e3?w=600&q=80', 'description': 'Ditch the plastic bottles with these concentrated shampoo and conditioner bars. Lasts for up to 80 washes.'},
-        { id: 18, 'name': 'Bamboo Toothbrush (4-Pack)', 'price': 550, 'image': 'https://images.unsplash.com/photo-1606884486937-a17d3c00b244?w=600&q=80', 'description': 'A biodegradable alternative to plastic toothbrushes. Made from sustainably sourced bamboo with charcoal-infused bristles.'},
-        { id: 19, 'name': 'Reusable Coffee Cup', 'price': 1500, 'image': 'https://images.unsplash.com/photo-1579781430135-d8df8a645a45?w=600&q=80', 'description': 'A stylish, insulated coffee cup made from recycled materials. Keep your drink hot and reduce waste from disposable cups.'},
-        { id: 20, 'name': 'Energy Monitoring Smart Plugs (2-Pack)', 'price': 6000, 'image': 'https://images.unsplash.com/photo-1633509310763-3939b8a8a4a4?w=600&q=80', 'description': 'Monitor and control your home appliances from your phone. Set schedules and track energy usage to reduce your electricity bill.'},
-
-        // Eco Machines (NPR 20001 - 89999)
-        { id: 21, 'name': 'Home Biogas System', 'price': 75000, 'image': 'https://placehold.co/600x400/2E7D32/FFFFFF?text=Biogas+System', 'description': 'Convert your organic waste into clean cooking gas and liquid fertilizer. A revolutionary system for sustainable, off-grid living.'},
-        { id: 22, 'name': 'Rainwater Harvesting System (500L)', 'price': 45000, 'image': 'https://placehold.co/600x400/2E7D32/FFFFFF?text=Rainwater+System', 'description': 'Collect and store rainwater for gardening, cleaning, and non-potable uses. Includes a 500L tank, filter, and pump.'},
-        { id: 23, 'name': 'Solar Water Heater (150L)', 'price': 65000, 'image': 'https://placehold.co/600x400/2E7D32/FFFFFF?text=Solar+Heater', 'description': 'Harness solar energy to heat your water. This 150L system can significantly reduce your electricity or gas bills.'},
-        { id: 24, 'name': 'High-Capacity Power Station (1000Wh)', 'price': 89999, 'image': 'https://images.unsplash.com/photo-1616577632997-8a1c7a3b3e6a?w=600&q=80', 'description': 'A powerful, portable 1000Wh battery to power your essential devices during outages or off-grid adventures. Can be recharged via solar.'},
-        { id: 25, 'name': 'Automated Hydroponics System', 'price': 55000, 'image': 'https://images.unsplash.com/photo-1631018113933-a8234a4ba11a?w=600&q=80', 'description': 'Grow fresh produce indoors with this soil-free automated hydroponics system. Uses 90% less water than traditional farming.'},
-        { id: 26, 'name': 'Air-to-Water Generator', 'price': 82000, 'image': 'https://placehold.co/600x400/2E7D32/FFFFFF?text=Water+Generator', 'description': 'Generates up to 20 liters of pure drinking water from the humidity in the air. An incredible solution for clean water access.'},
-        { id: 27, 'name': 'Advanced Robotic Composter', 'price': 35000, 'image': 'https://placehold.co/600x400/2E7D32/FFFFFF?text=Robo+Composter', 'description': 'A fully automated composter that manages temperature, aeration, and moisture for perfect compost in just 2 weeks.'},
-        { id: 28, 'name': 'Smart Garden System', 'price': 21000, 'image': 'https://images.unsplash.com/photo-1530836243917-951766b85a32?w=600&q=80', 'description': 'An indoor garden that automates watering and lighting for growing herbs, salads, and flowers year-round.'},
-        { id: 29, 'name': 'Geothermal Heat Pump', 'price': 78000, 'image': 'https://placehold.co/600x400/2E7D32/FFFFFF?text=Geothermal+Pump', 'description': 'The most efficient way to heat and cool your home. Uses the stable temperature of the earth to provide year-round comfort.'},
-        { id: 30, 'name': 'Electric Bicycle', 'price': 85000, 'image': 'https://images.unsplash.com/photo-1576425995630-6998b9a4a78f?w=600&q=80', 'description': 'A sleek and powerful electric bike for a green and efficient commute. Travel up to 80km on a single charge.'}
-    ];
-
-    let cart = JSON.parse(localStorage.getItem('peasCart')) || [];
-
+    // --- UTILITY & API FUNCTIONS ---
     const saveCart = () => {
         localStorage.setItem('peasCart', JSON.stringify(cart));
     };
 
-    const renderProducts = () => {
+    const formatPrice = (price) => {
+        return `NPR. ${Number(price).toFixed(2)}`;
+    };
+
+    const fetchProducts = async () => {
+        try {
+            const response = await fetch(`${API_URL}/api/products`);
+            if (!response.ok) throw new Error('Network response was not ok.');
+            allProducts = await response.json();
+            return allProducts;
+        } catch (error) {
+            console.error('Failed to fetch products:', error);
+            const productGrid = document.getElementById('product-grid');
+            if (productGrid) productGrid.innerHTML = '<p>Error: Could not load products. Please ensure the backend server is running.</p>';
+            return [];
+        }
+    };
+
+    const fetchProductById = async (id) => {
+        if (allProducts.length > 0) {
+            const product = allProducts.find(p => p.id == id);
+            if (product) return product;
+        }
+        try {
+            const response = await fetch(`${API_URL}/api/products/${id}`);
+            if (!response.ok) throw new Error('Product not found.');
+            return await response.json();
+        } catch (error) {
+            console.error(`Failed to fetch product ${id}:`, error);
+            return null;
+        }
+    };
+
+    // --- UI RENDERING ---
+    const renderProducts = (products) => {
         const productGrid = document.getElementById('product-grid');
         if (!productGrid) return;
 
@@ -80,63 +78,63 @@ document.addEventListener('DOMContentLoaded', () => {
                     <img src="${product.image}" alt="${product.name}" class="product-image">
                     <div class="product-card-content">
                         <h3>${product.name}</h3>
-                        <p class="product-price">NPR. ${product.price.toFixed(2)}</p>
+                        <p class="product-price">${formatPrice(product.price)}</p>
                     </div>
                 </a>
             </div>
         `).join('');
     };
 
-    const renderProductDetail = () => {
+    const renderProductDetail = async () => {
         const container = document.querySelector('.product-detail-container');
         if (!container) return;
 
         const productId = new URLSearchParams(window.location.search).get('id');
-        const product = products.find(p => p.id == productId);
+        if (!productId) return;
+
+        container.innerHTML = '<p>Loading product...</p>';
+        const product = await fetchProductById(productId);
 
         if (product) {
+            document.title = `${product.name} | PEAS`;
             container.innerHTML = `
                 <img src="${product.image}" alt="${product.name}" class="product-detail-image">
                 <div class="product-detail-info">
                     <h1>${product.name}</h1>
-                    <p class="product-detail-price">NPR. ${product.price.toFixed(2)}</p>
+                    <p class="product-detail-price">${formatPrice(product.price)}</p>
                     <p>${product.description}</p>
                     <button class="cta-button add-to-cart-btn" data-id="${product.id}">Add to Cart</button>
                 </div>
             `;
             container.querySelector('.add-to-cart-btn').addEventListener('click', (e) => {
                 const id = e.target.dataset.id;
-                addToCart(id);
+                handleAddToCart(id);
             });
         } else {
-            container.innerHTML = '<h2>Product not found.</h2>';
+            container.innerHTML = '<h2>Product not found.</h2><p>The product you are looking for does not exist. <a href="marketplace.html">Return to Marketplace</a>.</p>';
         }
     };
 
-    const addToCart = (productId) => {
-        const product = products.find(p => p.id == productId);
+    const handleAddToCart = async (productId) => {
+        const product = await fetchProductById(productId);
+        if (!product) {
+            alert('Error: Could not find product details.');
+            return;
+        }
+
         const cartItem = cart.find(item => item.id == productId);
 
         if (cartItem) {
             cartItem.quantity++;
         } else {
-            cart.push({ ...product, quantity: 1 });
+            cart.push({ ...product,
+                quantity: 1
+            });
         }
 
         saveCart();
         updateCartUI();
         openCart();
-    };
-
-    const updateCartUI = () => {
-        renderCartSidebar();
-        updateCartCount();
-    };
-
-    const updateCartCount = () => {
-        const cartCountElements = document.querySelectorAll('.cart-count');
-        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-        cartCountElements.forEach(el => el.textContent = totalItems);
     };
 
     const renderCartSidebar = () => {
@@ -156,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <img src="${item.image}" alt="${item.name}" class="cart-item-img">
                         <div class="cart-item-details">
                             <h4>${item.name}</h4>
-                            <p>NPR. ${item.price.toFixed(2)}</p>
+                            <p>${formatPrice(item.price)}</p>
                             <div class="cart-item-actions">
                                 <button class="quantity-btn decrease-btn">-</button>
                                 <input type="number" value="${item.quantity}" min="1" class="quantity-input">
@@ -171,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="cart-footer">
                 <div class="cart-total">
                     <span>Total:</span>
-                    <span>NPR. ${total.toFixed(2)}</span>
+                    <span>${formatPrice(total)}</span>
                 </div>
                 <a href="checkout.html" class="cta-button" style="width: 100%; text-align: center;">Checkout</a>
             </div>
@@ -179,6 +177,17 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
 
         addCartEventListeners();
+    };
+
+    const updateCartUI = () => {
+        renderCartSidebar();
+        updateCartCount();
+    };
+
+    const updateCartCount = () => {
+        const cartCountElements = document.querySelectorAll('.cart-count');
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        cartCountElements.forEach(el => el.textContent = totalItems);
     };
 
     const addCartEventListeners = () => {
@@ -250,7 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <img src="${item.image}" alt="${item.name}" class="cart-item-img">
                 <div class="cart-item-details">
                     <h4>${item.name} (x${item.quantity})</h4>
-                    <p>NPR. ${(item.price * item.quantity).toFixed(2)}</p>
+                    <p>${formatPrice(item.price * item.quantity)}</p>
                 </div>
             </div>
         `).join('');
@@ -259,54 +268,116 @@ document.addEventListener('DOMContentLoaded', () => {
         totalContainer.innerHTML = `
             <div class="cart-total">
                 <span>Total:</span>
-                <span>NPR. ${total.toFixed(2)}</span>
+                <span>${formatPrice(total)}</span>
             </div>
         `;
     };
 
-    const addCheckoutEventListeners = () => {
-        const checkoutForm = document.querySelector('.checkout-container .contact-form');
-        if (checkoutForm) {
-            checkoutForm.addEventListener('submit', (e) => {
-                e.preventDefault(); 
+    // --- EVENT HANDLERS & FORM SUBMISSIONS ---
 
-                if (cart.length === 0) {
-                    alert('Your cart is empty! Please add products before placing an order.');
-                    return;
-                }
+    const handleContactForm = async (form) => {
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        const submitButton = form.querySelector('button[type="submit"]');
+        const originalButtonText = submitButton.textContent;
 
-                alert('Thank you for your order! Your purchase has been confirmed and a summary will be sent to your email.');
-                
-                // Clear the cart
-                cart = [];
-                saveCart();
-                
-                // Redirect to homepage after a short delay
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 500);
+        submitButton.disabled = true;
+        submitButton.textContent = 'Sending...';
+
+        try {
+            const response = await fetch(`${API_URL}/api/contact`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
             });
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.message || 'Failed to send message.');
+
+            alert(result.message);
+            form.reset();
+        } catch (error) {
+            console.error('Contact form error:', error);
+            alert(`Error: ${error.message}`);
+        } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = originalButtonText;
+        }
+    };
+
+    const handleCheckoutForm = async (form) => {
+        if (cart.length === 0) {
+            alert('Your cart is empty! Please add products before placing an order.');
+            return;
+        }
+
+        const formData = new FormData(form);
+        const shippingDetails = Object.fromEntries(formData.entries());
+        const submitButton = form.querySelector('button[type="submit"]');
+        const originalButtonText = submitButton.textContent;
+
+        submitButton.disabled = true;
+        submitButton.textContent = 'Placing Order...';
+
+        try {
+            const response = await fetch(`${API_URL}/api/checkout`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ shippingDetails, cart }),
+            });
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.message || 'Failed to place order.');
+
+            alert(`${result.message}\nOrder ID: ${result.orderId}`);
+
+            cart = [];
+            saveCart();
+
+            window.location.href = 'index.html';
+        } catch (error) {
+            console.error('Checkout error:', error);
+            alert(`Error: ${error.message}`);
+        } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = originalButtonText;
         }
     };
 
     // --- INITIALIZATION ---
-    const init = () => {
-        // Page-specific renders
-        renderProducts();
-        renderProductDetail();
-        renderCheckoutPage();
-
+    const init = async () => {
         // Global UI updates
         updateCartUI();
 
         // Global event listeners
-        document.querySelectorAll('.cart-icon-wrapper').forEach(icon => {
-            icon.addEventListener('click', openCart);
-        });
+        document.querySelectorAll('.cart-icon-wrapper').forEach(icon => icon.addEventListener('click', openCart));
         cartOverlay?.addEventListener('click', closeCart);
 
-        // Add checkout form listener
-        addCheckoutEventListeners();
+        const contactForm = document.querySelector('.contact-form-container .contact-form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                handleContactForm(e.target);
+            });
+        }
+
+        const checkoutForm = document.querySelector('.checkout-container .contact-form');
+        if (checkoutForm) {
+            checkoutForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                handleCheckoutForm(e.target);
+            });
+        }
+
+        // Page-specific initializations that require fetching data
+        if (document.getElementById('product-grid')) {
+            const products = await fetchProducts();
+            renderProducts(products);
+        }
+        if (document.querySelector('.product-detail-container')) {
+            await renderProductDetail();
+        }
+        if (document.querySelector('.checkout-container')) {
+            renderCheckoutPage();
+        }
     };
 
     init();
