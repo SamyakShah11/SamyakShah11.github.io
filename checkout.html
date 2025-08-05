@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PEAS | Sustainable Solutions</title>
+    <title>Checkout | PEAS</title>
     <link rel="stylesheet" href="style.css">
     <script>
         (function() {
@@ -51,35 +51,45 @@
     <main>
         <section class="hero">
             <div class="hero-content">
-                <h1>Pioneering a Greener Future</h1>
-                <p>Innovative technology for a sustainable planet. Join us in making a difference.</p>
-                <a href="#" class="cta-button">Get Started</a>
+                <h1>Checkout</h1>
+                <p>Please review your order and provide your shipping details.</p>
             </div>
         </section>
 
-        <section class="features">
-            <h2>Hear From Our Users</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <h3>Sarah J.</h3>
-                    <p>"PEAS's solutions helped our company reduce its carbon footprint by 30%. Truly revolutionary!"</p>
+        <div class="checkout-container">
+            <div class="checkout-form-section">
+                <h2>Shipping Information</h2>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" id="address" name="address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" id="city" name="city" required>
+                    </div>
+                    <button type="submit" class="cta-button">Place Order (Simulated)</button>
+                </form>
+            </div>
+            <div class="checkout-summary-section">
+                <h2>Order Summary</h2>
+                <div class="checkout-summary-items">
+                    <!-- Summary items will be injected by script.js -->
                 </div>
-                <div class="feature-card">
-                    <h3>Mark L.</h3>
-                    <p>"The efficiency gains from their technology are incredible. We're saving money and the planet."</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Eco Innovate Corp.</h3>
-                    <p>"A partnership with PEAS is a step towards a sustainable and profitable future. Highly recommended."</p>
+                <div class="checkout-summary-total">
+                    <!-- Total will be injected by script.js -->
                 </div>
             </div>
-        </section>
+        </div>
     </main>
-
-    <div class="cart-overlay"></div>
-    <div class="cart-sidebar">
-        <!-- Cart content will be injected by script.js -->
-    </div>
 
     <footer class="footer">
         <div class="social-links">
