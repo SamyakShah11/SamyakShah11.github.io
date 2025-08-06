@@ -1,22 +1,142 @@
 [
-    { "id": 1, "name": "Bamboo Cutlery Set", "price": 899, "image": "https://images.unsplash.com/photo-1615326556243-2c9a7b5a9a41?w=600&q=80", "description": "Ditch single-use plastics with this stylish and durable bamboo cutlery set. Includes fork, knife, spoon, chopsticks, and a cleaning brush in a convenient travel pouch." },
-    { "id": 2, "name": "Reusable Beeswax Wraps (3-Pack)", "price": 1250, "image": "https://images.unsplash.com/photo-1598624422981-3421a3a9d706?w=600&q=80", "description": "A natural and reusable alternative to plastic wrap. Perfect for covering bowls, wrapping sandwiches, and storing food. Made from organic cotton and beeswax." },
-    { "id": 3, "name": "Solar-Powered Phone Charger", "price": 2499, "image": "https://images.unsplash.com/photo-1593592415546-9a315a3b048b?w=600&q=80", "description": "Harness the power of the sun to charge your devices on the go. Compact, lightweight, and perfect for hiking, camping, or emergencies." },
-    { "id": 4, "name": "LED Smart Bulbs (4-Pack)", "price": 3500, "image": "https://images.unsplash.com/photo-1620425198463-d33055a2a75b?w=600&q=80", "description": "Upgrade your home with these energy-efficient smart bulbs. Control brightness and color from your phone, and save up to 80% on lighting costs." },
-    { "id": 5, "name": "Water-Saving Showerhead", "price": 1999, "image": "https://images.unsplash.com/photo-1600242262374-551a0248525b?w=600&q=80", "description": "Reduce your water consumption without sacrificing pressure. This showerhead uses atomization technology to save up to 70% of water." },
-    { "id": 6, "name": "Kitchen Compost Bin (5L)", "price": 2999, "image": "https://images.unsplash.com/photo-1599858386028-35a40e491183?w=600&q=80", "description": "A sleek and odorless solution for your kitchen scraps. This countertop compost bin makes it easy to turn food waste into nutrient-rich soil for your garden." },
-    { "id": 7, "name": "Recycled Paper Notebook Set", "price": 750, "image": "https://images.unsplash.com/photo-1456735190827-d1262f71b8a3?w=600&q=80", "description": "Jot down your ideas on paper that’s kind to the planet. This set of three notebooks is made from 100% post-consumer recycled paper." },
-    { "id": 8, "name": "Plant-Based Cleaning Kit", "price": 2200, "image": "https://images.unsplash.com/photo-1583947215251-b534f14a505b?w=600&q=80", "description": "A complete set of non-toxic, plant-based cleaning supplies for your entire home. Powerful on grime, gentle on the environment." },
-    { "id": 9, "name": "Wool Dryer Balls (6-Pack)", "price": 1100, "image": "https://images.unsplash.com/photo-1621610232233-0998aa513998?w=600&q=80", "description": "A natural fabric softener that reduces drying time, static, and wrinkles. Reusable for over 1,000 loads, replacing disposable dryer sheets." },
-    { "id": 10, "name": "Stainless Steel Reusable Straws", "price": 499, "image": "https://images.unsplash.com/photo-1559675522-7a5d31d7244a?w=600&q=80", "description": "Set of 4 stainless steel straws with a cleaning brush and travel pouch. A simple switch to reduce plastic waste."},
-    { "id": 11, "name": "Smart Thermostat", "price": 14500, "image": "https://images.unsplash.com/photo-1617103996223-372b3648a21a?w=600&q=80", "description": "Learns your schedule and preferences to automatically adjust your home’s temperature, saving energy and money without sacrificing comfort." },
-    { "id": 12, "name": "Electric Kitchen Composter", "price": 19999, "image": "https://placehold.co/600x400/4CAF50/FFFFFF?text=Electric+Composter", "description": "Turn your food scraps into ready-to-use compost in a matter of hours, not weeks. This electric composter dries, grinds, and cools waste with the push of a button." },
-    { "id": 13, "name": "Portable Solar Panel (100W)", "price": 18500, "image": "https://images.unsplash.com/photo-1558260573-39a0f0176a63?w=600&q=80", "description": "A foldable and powerful 100W solar panel for charging power stations and electronics during camping, RV trips, or power outages." },
-    { "id": 14, "name": "Indoor Air Quality Monitor", "price": 8500, "image": "https://images.unsplash.com/photo-1612189459338-a8d9c749a4e9?w=600&q=80", "description": "Track key air quality metrics like PM2.5, CO2, humidity, and temperature in your home to ensure you’re breathing clean, healthy air." },
-    { "id": 15, "name": "High-Efficiency Air Purifier", "price": 16000, "image": "https://images.unsplash.com/photo-1624385399881-b52737a89264?w=600&q=80", "description": "Captures 99.97% of airborne pollutants like dust, pollen, smoke, and pet dander. Features a washable pre-filter and a true HEPA filter." },
-    { "id": 16, "name": "Organic Cotton Mesh Produce Bags", "price": 699, "image": "https://images.unsplash.com/photo-1582692196848-a2374a4d7b34?w=600&q=80", "description": "Set of 5 reusable mesh bags for fruits and vegetables. Lightweight, durable, and machine washable."},
-    { "id": 17, "name": "Solid Shampoo & Conditioner Bars", "price": 1450, "image": "https://images.unsplash.com/photo-1625357125943-3a789a5207e3?w=600&q=80", "description": "Ditch the plastic bottles with these concentrated shampoo and conditioner bars. Lasts for up to 80 washes."},
-    { "id": 18, "name": "Bamboo Toothbrush (4-Pack)", "price": 550, "image": "https://images.unsplash.com/photo-1606884486937-a17d3c00b244?w=600&q=80", "description": "A biodegradable alternative to plastic toothbrushes. Made from sustainably sourced bamboo with charcoal-infused bristles."},
-    { "id": 19, "name": "Reusable Coffee Cup", "price": 1500, "image": "https://images.unsplash.com/photo-1579781430135-d8df8a645a45?w=600&q=80", "description": "A stylish, insulated coffee cup made from recycled materials. Keep your drink hot and reduce waste from disposable cups."},
-    { "id": 20, "name": "Energy Monitoring Smart Plugs (2-Pack)", "price": 6000, "image": "https://images.unsplash.com/photo-1633509310763-3939b8a8a4a4?w=600&q=80", "description": "Monitor and control your home appliances from your phone. Set schedules and track energy usage to reduce your electricity bill."}
+  {
+    "id": 1,
+    "name": "Reusable Beeswax Wraps",
+    "price": 699,
+    "image": "imagefolder/1.jpg",
+    "description": "Smart food storage made with beeswax-infused cloth, replacing plastic wraps. Durable, washable, and biodegradable—perfect blend of tradition and eco-tech for zero-waste lifestyles."
+  },
+  {
+    "id": 2,
+    "name": "Bamboo Toothbrushes",
+    "price": 249,
+    "image": "imagefolder/2.jpg",
+    "description": "An eco-tech upgrade for oral care. These biodegradable bamboo toothbrushes reduce plastic pollution while maintaining hygiene with soft, BPA-free bristles and a compostable handle."
+  },
+  {
+    "id": 3,
+    "name": "Plant-Based Biodegradable Trash Bags",
+    "price": 399,
+    "image": "imagefolder/3.jpg",
+    "description": "Tech-driven biodegradable trash bags made from plants. Break down naturally without polluting soil or water, offering a sustainable, future-ready alternative to traditional plastic garbage bags."
+  },
+  {
+    "id": 4,
+    "name": "Solar-Powered Power Banks",
+    "price": 2499,
+    "image": "imagefolder/4.jpg",
+    "description": "Eco-tech charging solution powered by the sun. This solar power bank stores clean energy, perfect for outdoor use, emergencies, and reducing your carbon footprint."
+  },
+  {
+    "id": 5,
+    "name": "Recycled Paper Stationery",
+    "price": 349,
+    "image": "imagefolder/5.jpg",
+    "description": "Smartly recycled notebooks using tech-optimized processing. Reduces paper waste and promotes green living with zero-bleach, chemical-free paper—ideal for school, office, or journaling needs."
+  },
+  {
+    "id": 6,
+    "name": "Eco-Friendly Detergents",
+    "price": 599,
+    "image": "imagefolder/6.jpg",
+    "description": "Green chemistry meets eco-tech cleaning. Biodegradable laundry detergent removes stains without harming nature, using plant enzymes and sustainable packaging for a cleaner planet."
+  },
+  {
+    "id": 7,
+    "name": "Cloth Shopping Bags",
+    "price": 199,
+    "image": "imagefolder/7.jpg",
+    "description": "Tech-enhanced reusable cloth bags designed for strength, style, and sustainability. Replace plastic bags with washable, long-lasting fabric built to support eco-smart shopping habits."
+  },
+  {
+    "id": 8,
+    "name": "Shampoo Bars",
+    "price": 499,
+    "image": "imagefolder/8.jpg",
+    "description": "Advanced zero-waste haircare. Solid shampoo bars packed with natural oils and no plastic packaging. Eco-tech solution for healthy hair and a cleaner planet."
+  },
+  {
+    "id": 9,
+    "name": "Bamboo Cutlery Sets",
+    "price": 899,
+    "image": "imagefolder/9.jpg",
+    "description": "Portable bamboo cutlery infused with sustainable innovation. Replace single-use plastic utensils with this reusable, antibacterial, and stylish set—an essential eco-tech switch for conscious living."
+  },
+  {
+    "id": 10,
+    "name": "Compost Bins",
+    "price": 1999,
+    "image": "imagefolder/10.jpg",
+    "description": "Compact kitchen compost bin powered by odor-blocking eco-tech. Transforms organic waste into nutrient-rich compost, encouraging greener homes and cleaner landfills."
+  },
+  {
+    "id": 11,
+    "name": "Upcycled Furniture",
+    "price": 8499,
+    "image": "imagefolder/11.jpg",
+    "description": "Furniture reborn through eco-tech upcycling. Crafted from reclaimed wood, each piece combines sustainability with smart design, reducing landfill waste and carbon emissions."
+  },
+  {
+    "id": 12,
+    "name": "LED Bulbs",
+    "price": 299,
+    "image": "imagefolder/12.jpg",
+    "description": "Low-energy, high-efficiency LED bulbs with smart eco-tech engineering. Cut electricity usage and carbon footprint with long-lasting lighting technology."
+  },
+  {
+    "id": 13,
+    "name": "Eco-Bricks",
+    "price": 50,
+    "image": "imagefolder/13.jpg",
+    "description": "Plastic waste meets eco-engineering. Eco-bricks are durable blocks formed from reused plastic, perfect for green construction and educational projects."
+  },
+  {
+    "id": 14,
+    "name": "Coconut Shell Bowls",
+    "price": 699,
+    "image": "imagefolder/14.jpg",
+    "description": "Crafted using nature and tech, these coconut bowls are biodegradable, lightweight, and perfect for serving meals sustainably with zero waste."
+  },
+  {
+    "id": 15,
+    "name": "Natural Fiber Clothing",
+    "price": 1499,
+    "image": "imagefolder/15.jpg",
+    "description": "Breathe in eco-fashion. Clothing made from tech-processed natural fibers like hemp and bamboo, offering comfort, style, and sustainability in every thread."
+  },
+  {
+    "id": 16,
+    "name": "Biodegradable Phone Cases",
+    "price": 999,
+    "image": "imagefolder/16.jpg",
+    "description": "Eco-smart phone protection made from compostable materials. Durable, stylish, and fully biodegradable—tech meets sustainability in your daily accessories."
+  },
+  {
+    "id": 17,
+    "name": "Solar Garden Lights",
+    "price": 1499,
+    "image": "imagefolder/17.jpg",
+    "description": "Illuminate outdoors using solar energy. Smart sensors charge by day, glow by night. A beautiful blend of renewable energy and sustainable design."
+  },
+  {
+    "id": 18,
+    "name": "Refillable Cleaning Spray Bottles",
+    "price": 399,
+    "image": "imagefolder/18.jpg",
+    "description": "Reusable spray bottles designed for tablet-based cleaning solutions. Eco-tech cleaning innovation reduces plastic waste and encourages sustainable home care."
+  },
+  {
+    "id": 19,
+    "name": "Paper Seed Pencils",
+    "price": 299,
+    "image": "imagefolder/19.jpg",
+    "description": "Write your ideas, then plant them. These biodegradable pencils contain seeds and merge writing with growing—a clever eco-tech product for students and artists."
+  },
+  {
+    "id": 20,
+    "name": "Solar Powered Water Purifiers",
+    "price": 2999,
+    "image": "imagefolder/20.jpg",
+    "description": "Harness solar power to purify water anywhere. Tech-powered filtration removes contaminants while staying off-grid—ideal for emergencies and eco-friendly living."
+  }
 ]

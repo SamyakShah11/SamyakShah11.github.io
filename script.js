@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- CONFIG & STATE ---
-    const API_URL = 'http://localhost:3000';
+    const API_URL = ''; // Use relative paths for API calls
     let allProducts = []; // Cache for all products fetched from the server
     let cart = JSON.parse(localStorage.getItem('peasCart')) || [];
 
