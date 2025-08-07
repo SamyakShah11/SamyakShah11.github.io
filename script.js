@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- CONFIG & STATE ---
-    const API_URL = ''; // Use relative paths for API calls
+    const API_URL = window.location.origin; // Use the current origin for API calls
     let allProducts = []; // Cache for all products fetched from the server
     let cart = JSON.parse(localStorage.getItem('peasCart')) || [];
 
@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch(`${API_URL}/api/products`);
             if (!response.ok) throw new Error('Network response was not ok.');
             allProducts = await response.json();
+            console.log('Products loaded:', allProducts);
             return allProducts;
         } catch (error) {
             console.error('Failed to fetch products:', error);
@@ -73,16 +74,22 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!productGrid) return;
 
         productGrid.innerHTML = products.map((product, index) => `
-            <div class="product-card" style="animation-delay: ${index * 0.05}s;">
-                <a href="product-detail.html?id=${product.id}">
-                    <img src="${product.image}" alt="${product.name}" class="product-image">
-                    <div class="product-card-content">
-                        <h3>${product.name}</h3>
-                        <p class="product-price">${formatPrice(product.price)}</p>
-                    </div>
-                </a>
+            <div class="product-card" data-product-id="${product.id}" style="animation-delay: ${index * 0.05}s;">
+                <img src="${product.image}" alt="${product.name}" class="product-image">
+                <div class="product-card-content">
+                    <h3>${product.name}</h3>
+                    <p class="product-price">${formatPrice(product.price)}</p>
+                </div>
             </div>
         `).join('');
+
+        // Add event listeners to product cards for navigation
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const productId = card.dataset.productId;
+                window.location.href = `product-detail.html?id=${productId}`;
+            });
+        });
     };
 
     const renderProductDetail = async () => {
@@ -99,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.title = `${product.name} | PEAS`;
             container.innerHTML = `
                 <img src="${product.image}" alt="${product.name}" class="product-detail-image">
-                <div class="product-detail-info">
+                <div class="product-detail-content">
                     <h1>${product.name}</h1>
                     <p class="product-detail-price">${formatPrice(product.price)}</p>
                     <p>${product.description}</p>
@@ -342,6 +349,116 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    // --- SEARCH & FILTER FUNCTIONS ---
+    
+    const searchProducts = (query) => {
+        if (!query.trim()) return allProducts;
+        
+        const searchTerm = query.toLowerCase();
+        return allProducts.filter(product => 
+            product.name.toLowerCase().includes(searchTerm) ||
+            product.description.toLowerCase().includes(searchTerm)
+        );
+    };
+
+    const filterByPriceRange = (products, minPrice, maxPrice) => {
+        let filtered = products;
+        
+        if (minPrice !== null && minPrice !== '') {
+            filtered = filtered.filter(product => product.price >= parseFloat(minPrice));
+        }
+        
+        if (maxPrice !== null && maxPrice !== '') {
+            filtered = filtered.filter(product => product.price <= parseFloat(maxPrice));
+        }
+        
+        return filtered;
+    };
+
+    const sortProducts = (products, sortBy) => {
+        const sorted = [...products];
+        
+        switch (sortBy) {
+            case 'price-low':
+                return sorted.sort((a, b) => a.price - b.price);
+            case 'price-high':
+                return sorted.sort((a, b) => b.price - a.price);
+            case 'name-asc':
+                return sorted.sort((a, b) => a.name.localeCompare(b.name));
+            case 'name-desc':
+                return sorted.sort((a, b) => b.name.localeCompare(a.name));
+            default:
+                return sorted;
+        }
+    };
+
+    const resetFilters = () => {
+        document.getElementById('search-input').value = '';
+        document.getElementById('min-price').value = '';
+        document.getElementById('max-price').value = '';
+        document.getElementById('sort-select').value = 'default';
+        renderProducts(allProducts);
+    };
+
+    const applyFilters = () => {
+        const searchQuery = document.getElementById('search-input').value;
+        const minPrice = document.getElementById('min-price').value;
+        const maxPrice = document.getElementById('max-price').value;
+        const sortBy = document.getElementById('sort-select').value;
+
+        let filtered = allProducts;
+
+        // Apply search
+        if (searchQuery.trim()) {
+            filtered = searchProducts(searchQuery);
+        }
+
+        // Apply price range
+        filtered = filterByPriceRange(filtered, minPrice, maxPrice);
+
+        // Apply sorting
+        filtered = sortProducts(filtered, sortBy);
+
+        renderProducts(filtered);
+    };
+
+    // --- EVENT LISTENERS FOR SEARCH & FILTERS ---
+    const setupSearchAndFilterListeners = () => {
+        const searchInput = document.getElementById('search-input');
+        const searchBtn = document.getElementById('search-btn');
+        const sortSelect = document.getElementById('sort-select');
+        const minPrice = document.getElementById('min-price');
+        const maxPrice = document.getElementById('max-price');
+        const filterPriceBtn = document.getElementById('filter-price-btn');
+        const resetBtn = document.getElementById('reset-filters');
+
+        if (searchInput) {
+            searchInput.addEventListener('input', applyFilters);
+        }
+
+        if (searchBtn) {
+            searchBtn.addEventListener('click', applyFilters);
+        }
+
+        if (sortSelect) {
+            sortSelect.addEventListener('change', applyFilters);
+        }
+
+        if (minPrice || maxPrice) {
+            [minPrice, maxPrice].forEach(input => {
+                if (input) input.addEventListener('input', applyFilters);
+            });
+        }
+
+        if (filterPriceBtn) {
+            filterPriceBtn.addEventListener('click', applyFilters);
+        }
+
+        if (resetBtn) {
+            resetBtn.addEventListener('click', resetFilters);
+        }
+    };
+
     // --- INITIALIZATION ---
     const init = async () => {
         // Global UI updates
@@ -370,7 +487,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Page-specific initializations that require fetching data
         if (document.getElementById('product-grid')) {
             const products = await fetchProducts();
+            allProducts = products;
             renderProducts(products);
+            setupSearchAndFilterListeners();
         }
         if (document.querySelector('.product-detail-container')) {
             await renderProductDetail();
